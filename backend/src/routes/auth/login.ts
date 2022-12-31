@@ -1,9 +1,10 @@
 import crypto from 'crypto';
+import argon2 from 'argon2';
 import { Request, Response } from 'express';
 import { AdminModel, IAdmin } from '../../db/models/AdminModel';
 import { CallbackError } from 'mongoose';
 
-export function handleLogin(req: Request, res: Response) {
+export async function handleLogin(req: Request, res: Response) {
     const { username, password, remember } = req.body;
 
     if (typeof username !== 'string' || typeof password !== 'string' || typeof remember !== 'boolean') { 
@@ -11,30 +12,42 @@ export function handleLogin(req: Request, res: Response) {
         return
     }
 
-    AdminModel.findOneAndUpdate({ username: username, password: password },
-        { session: { 
-            token: getNewSession(), 
-            expiresIn: getExpireDate(remember) 
-        }},
-        {new: true}, 
-        (err, doc) => { 
-            if (err) throw err;
+    const adminUser = await AdminModel.findOne({ username: username });
 
-            if (doc === null) {
-                res.writeHead(401); // invalid credentials for login
-                res.end()
-                return
+    if (adminUser === null) {
+        res.writeHead(401); // invalid credentials for login
+        res.end()
+        return
+    }
+
+    const isPasswordCorrect = await arePasswordsEqual(adminUser.password, password);
+
+    if (isPasswordCorrect === true) {
+        const updatedSession = { 
+            session: { 
+                token: getNewSession(), // random string/token
+                expiresIn: getExpireDate(remember) // date the session/cookie will expire 
             }
+        }
 
-            console.log('Doc updated. The updated doc is: ', doc);
+        await adminUser.updateOne(updatedSession);
 
-            res.writeHead(200, {
-                'Set-Cookie': 
-                    [`sessionid=${doc.session.token};HttpOnly;Secure;Expires=${doc.session.expiresIn.toUTCString()};Path=/`]
-            })
-            res.end()
-            return
+        res.writeHead(200, {
+            'Set-Cookie': 
+                [`sessionid=${updatedSession.session.token};HttpOnly;Secure;Expires=${updatedSession.session.expiresIn.toUTCString()};Path=/`]
         })
+        res.end()
+        return
+    }
+
+    // if the code reaches here it means the user exists but the password is incorrect
+    // therefore, return the http status code 401
+    res.writeHead(401, {
+        'Set-Cookie': 
+            [`sessionid=hello;HttpOnly;Secure;Max-Age=10;Path=/`]
+    })
+    res.end()
+    return
 }
 
 function getNewSession(size=40): string {
@@ -58,4 +71,16 @@ function  getExpireDate(remember: boolean): Date {
     }
 
     return expireDate
+}
+
+
+async function arePasswordsEqual(hashedPassword:string, plain:string):Promise<boolean> {
+    try {
+        const isEqual = await argon2.verify(hashedPassword, plain)
+        return isEqual
+    }
+    catch (e) {
+        console.log('Error during password verification: ', e)
+        return false
+    }
 }
