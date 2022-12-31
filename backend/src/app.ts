@@ -4,6 +4,7 @@ dotenv.config();
 import cookieParser from 'cookie-parser';
 import { handleLogin } from './routes/auth/login';
 import { isAuthenticated } from './routes/auth/authentication';
+import { handleGetUsers } from './routes/customer/user';
 
 export const app = express();
 app.use(cookieParser());
@@ -12,6 +13,4 @@ app.use(express.urlencoded({ extended: true }));
 
 app.post('/api/v1/login', handleLogin);
 
-app.get('/api/v1/users', isAuthenticated, (req, res) => {
-    res.end('This is a protected route');
-}) 
+app.get('/api/v1/users', isAuthenticated, handleGetUsers) 
