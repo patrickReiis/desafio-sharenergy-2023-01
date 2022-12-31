@@ -34,7 +34,7 @@ export async function handleLogin(req: Request, res: Response) {
 
         res.writeHead(200, {
             'Set-Cookie': 
-                [`sessionid=${updatedSession.session.token};HttpOnly;Secure;Expires=${updatedSession.session.expiresIn.toUTCString()};Path=/`]
+                [`sessionId=${updatedSession.session.token};HttpOnly;Secure;Expires=${updatedSession.session.expiresIn.toUTCString()};Path=/`]
         })
         res.end()
         return
@@ -44,7 +44,7 @@ export async function handleLogin(req: Request, res: Response) {
     // therefore, return the http status code 401
     res.writeHead(401, {
         'Set-Cookie': 
-            [`sessionid=hello;HttpOnly;Secure;Max-Age=10;Path=/`]
+            [`sessionId=hello;HttpOnly;Secure;Max-Age=10;Path=/`]
     })
     res.end()
     return
@@ -72,7 +72,6 @@ function  getExpireDate(remember: boolean): Date {
 
     return expireDate
 }
-
 
 async function arePasswordsEqual(hashedPassword:string, plain:string):Promise<boolean> {
     try {
