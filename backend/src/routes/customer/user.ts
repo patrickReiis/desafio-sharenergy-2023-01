@@ -79,6 +79,27 @@ export async function handleUpdateUser(req: Request, res: Response) {
     }
 }
 
+export async function handleDeleteUser(req: Request, res: Response) {
+    const CPF = req.url.slice('/api/v1/user/'.length);
+
+    const user = await UserModel.findOne({ CPF: CPF });
+
+    if (user === null) {
+        res.status(404).send();
+        return
+    }
+
+    try {
+        await user.delete();
+        res.status(200).send();
+        return
+    } catch (e) {
+        console.log('Error during deleting user: ', e);
+        res.status(500).send();
+        return
+    }
+}
+
 async function doesUserExists(CPF: number): Promise<boolean> {
     const user = await UserModel.findOne({ CPF: CPF });
 
