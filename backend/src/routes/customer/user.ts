@@ -24,3 +24,57 @@ export async function handleGetUsers(req: Request, res: Response) {
 
     res.json(usersFiltered);
 }
+
+export async function handleCreateUser(req: Request, res: Response) {
+    if (isBodyValidUserCreation(req.body) === false) {
+        res.status(400).json({ error: 'The correct body format is { name: string, email: string, phone: number, address: string, CPF: number } Empty property values are also not valid' })
+        return
+    }
+
+    // the body was validated in the function above
+    // therefore I can trust the types of this destructuring assignment
+    const { name, email, phone, address, CPF } = req.body; 
+
+    if (await doesUserExists(CPF) === true) {
+        res.status(409).json({ error: 'User already exists' });
+        return
+    } 
+
+    try {
+        const newUser = await UserModel.create({ name: name, email: email, phone: phone, address: address, CPF: CPF })
+        console.log('New user created: ', newUser);
+        res.status(200).send();
+        return
+    } catch (e) {
+        console.log('Error during user creation: ', e);
+        res.status(500).send();
+        return
+    }
+
+}
+
+async function doesUserExists(CPF: number): Promise<boolean> {
+    const user = await UserModel.findOne({ CPF: CPF });
+
+    if (user === null) return false;
+
+    return true
+}
+
+function isBodyValidUserCreation(body: any): boolean {
+    const { name, email, phone, address, CPF } = body; 
+
+    if (typeof name !== 'string' || typeof email !== 'string' 
+        ||
+        typeof phone !== 'number' || typeof address !== 'string'
+        ||
+        typeof CPF !== 'number') {
+            return false
+    }
+
+    if (email.length === 0) return false;
+    if (name.length === 0) return false;
+    if (address.length === 0) return false;
+
+    return true
+}
