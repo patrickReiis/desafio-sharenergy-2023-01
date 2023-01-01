@@ -122,8 +122,5 @@ function isBodyValidUserUpdate(body: any) {
     if ('phone' in body && typeof body['phone'] !== 'number') return false;
     if ('address' in body && typeof body['address'] !== 'string') return false;
 
-
-
-
     return true
 }
