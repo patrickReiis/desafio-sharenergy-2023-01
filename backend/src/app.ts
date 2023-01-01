@@ -4,7 +4,7 @@ dotenv.config();
 import cookieParser from 'cookie-parser';
 import { handleLogin } from './routes/auth/login';
 import { isAuthenticated } from './routes/auth/authentication';
-import { handleGetUsers, handleCreateUser, handleUpdateUser } from './routes/customer/user';
+import { handleGetUsers, handleCreateUser, handleUpdateUser, handleDeleteUser } from './routes/customer/user';
 
 export const app = express();
 app.use(cookieParser());
@@ -18,3 +18,5 @@ app.get('/api/v1/users', isAuthenticated, handleGetUsers)
 app.post('/api/v1/user', isAuthenticated, handleCreateUser);
 
 app.put('/api/v1/user/[0-9]+', isAuthenticated, handleUpdateUser);
+
+app.delete('/api/v1/user/[0-9]+', isAuthenticated, handleDeleteUser);
