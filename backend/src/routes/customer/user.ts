@@ -53,6 +53,32 @@ export async function handleCreateUser(req: Request, res: Response) {
 
 }
 
+export async function handleUpdateUser(req: Request, res: Response) {
+    const CPF = req.url.slice('/api/v1/user/'.length);
+
+    if (isBodyValidUserUpdate(req.body) === false) {
+        res.status(400).json({ error: 'You can only update the following properties: name, email, phone, address.' })
+        return
+    }
+
+    const user = await UserModel.findOne({ CPF: CPF });
+
+    if (user === null) {
+        res.status(404).send();
+        return
+    }
+
+    try {
+        await user.updateOne(req.body);
+        res.status(200).send();
+        return
+    } catch (e) {
+        console.log('Error during updating user: ', e);
+        res.status(500).send();
+        return
+    }
+}
+
 async function doesUserExists(CPF: number): Promise<boolean> {
     const user = await UserModel.findOne({ CPF: CPF });
 
@@ -75,6 +101,29 @@ function isBodyValidUserCreation(body: any): boolean {
     if (email.length === 0) return false;
     if (name.length === 0) return false;
     if (address.length === 0) return false;
+
+    return true
+}
+
+function isBodyValidUserUpdate(body: any) {
+    const updateableProperties = ['name', 'email', 'phone', 'address'];
+
+    if (typeof body !== 'object' || Array.isArray(body) === true) return false;
+
+    const bodyKeys = Object.keys(body);
+    if (bodyKeys.length > updateableProperties.length) return false;
+
+    for (let i = 0; i < bodyKeys.length; i++) {
+        if (updateableProperties.includes(bodyKeys[i]) === false) return false;
+    }
+
+    if ('name' in body && typeof body['name'] !== 'string') return false;
+    if ('email' in body && typeof body['email'] !== 'string') return false;
+    if ('phone' in body && typeof body['phone'] !== 'number') return false;
+    if ('address' in body && typeof body['address'] !== 'string') return false;
+
+
+
 
     return true
 }
