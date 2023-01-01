@@ -25,6 +25,19 @@ export async function handleGetUsers(req: Request, res: Response) {
     res.json(usersFiltered);
 }
 
+export async function handleGetUser(req: Request, res: Response) {
+    const CPF = req.url.slice('/api/v1/user/'.length);
+
+    const user = await UserModel.findOne({ CPF: CPF });
+
+    if (user === null) {
+        res.status(404).send();
+        return
+    }
+
+    res.status(200).json({ name: user.name, email: user.email, phone: user.phone, address: user.address, CPF: user.CPF });
+}
+
 export async function handleCreateUser(req: Request, res: Response) {
     if (isBodyValidUserCreation(req.body) === false) {
         res.status(400).json({ error: 'The correct body format is { name: string, email: string, phone: number, address: string, CPF: number } Empty property values are also not valid' })
