@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import { handleLogin } from './routes/auth/login';
 import { isAuthenticated } from './routes/auth/authentication';
 import { handleGetUsers, handleGetUser, handleCreateUser, handleUpdateUser, handleDeleteUser } from './routes/customer/user';
+import { handleGetRandomUsers } from './routes/no-db/random-user/randomUser';
 
 export const app = express();
 app.use(cookieParser());
@@ -22,3 +23,5 @@ app.post('/api/v1/user', isAuthenticated, handleCreateUser);
 app.put('/api/v1/user/[0-9]+', isAuthenticated, handleUpdateUser);
 
 app.delete('/api/v1/user/[0-9]+', isAuthenticated, handleDeleteUser);
+
+app.get('/api/v1/randomUsers', isAuthenticated, handleGetRandomUsers);
