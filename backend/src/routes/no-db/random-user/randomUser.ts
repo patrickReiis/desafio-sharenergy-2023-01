@@ -13,6 +13,9 @@ export async function handleGetRandomUsers(req: Request, res: Response) {
         randomResponse.on('end', () => {
             try {
                 const parsedData = JSON.parse(rawData);
+
+                if (parsedData['error'] !== undefined) throw new Error(parsedData['error']);
+
                 const finalData = parsedData['results'].map(
                     ({ picture: { large: photo }, name: { first, last}, email, login: { username }, dob: { age } }:any) => 
                     ({ photo, fullname:`${ first + ' ' + last}`, email, username , age  })
