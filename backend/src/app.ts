@@ -31,3 +31,7 @@ app.get('/api/v1/randomUsers', isAuthenticated, handleGetRandomUsers);
 app.get('/api/v1/catHttp', isAuthenticated, handleCatHttp);
 
 app.get('/api/v1/randomDog', isAuthenticated, handleRandomDog);
+
+app.get('/api/v1/me', isAuthenticated, (_req, res) => {
+  res.status(200).send();
+})
