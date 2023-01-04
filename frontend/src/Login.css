@@ -1,0 +1,81 @@
+.Login-form {
+  width: 500px;
+  margin: auto;
+}
+
+.Login-title {
+  color: var(--main-medium-dark-blue); 
+  margin: 0.25rem;
+}
+
+#Login-title-company {
+  font-size: calc(3rem + 20%);
+}
+
+#Login-title-patrick {
+  font-size: calc(1.5rem + 20%);
+}
+
+.Login-input {
+  border-radius: var(--main-border-radius);
+  padding: var(--main-border-radius-padding);
+  font-size: 1.25rem;
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid var(--main-medium-dark-blue);
+  margin: var(--main-border-radius-margin) 0;
+}
+
+.Login-input:focus{
+  outline: var(--main-medium-dark-blue) solid 3px;
+  box-shadow: none;
+}
+
+.Login-container-input {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.Login-button-submit {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+  margin: var(--main-border-radius-margin) 0;
+  padding: var(--main-border-radius-padding);
+  border-radius: var(--main-border-radius);
+  font-size: 1.25rem;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  border: none;
+  background: var(--main-medium-dark-blue);
+  color: var(--main-light-color);
+  cursor: pointer;
+}
+
+#Login-remember {
+  accent-color: var(--main-medium-dark-blue);
+  transform: scale(2);
+  width: 10px;
+}
+
+.remember-container label, #Login-remember {
+  user-select: none;
+  cursor: pointer;
+  margin: 0.25rem;
+  color: var(--main-light-color);
+  font-weight: bold;
+}
+
+.remember-container {
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.Login-container-all {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
