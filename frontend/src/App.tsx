@@ -1,25 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Login from './Login';
+import { Routes, Route } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
+import RandomUser from './RandomUser';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const requestIsAuthenticated = async () => {
+      try {
+        const response = await fetch('/api/v1/me');
+
+        if (response.ok === false) {
+          setIsAuthenticated(false);
+        } else {
+          setIsAuthenticated(true);
+        }
+      } 
+      catch (e) {
+        console.log('An error happened: ', e);
+        setIsAuthenticated(false);
+        return
+      }
+    }
+
+    requestIsAuthenticated();
+  }, [isAuthenticated]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+        <Routes>
+          <Route path="/login" element={
+            <Login isAuthenticated={isAuthenticated} />
+          }/>
+          <Route path={'/'} element={
+            <PrivateRoute component={
+              <RandomUser/>} path={'/randomUser'} isAuthenticated={isAuthenticated} />
+          }/> 
+          <Route path={'randomUsers'} element={
+            <PrivateRoute component={
+              <RandomUser/>} path={'/randomUser'} isAuthenticated={isAuthenticated} />
+          }/>
+        </Routes>
+      </div>
   );
 }
 
