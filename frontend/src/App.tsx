@@ -2,7 +2,7 @@ import './App.css';
 import Login from './Login';
 import { Routes, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
-import RandomUser from './RandomUser';
+import RandomUsers from './RandomUsers';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -37,11 +37,11 @@ function App() {
           }/>
           <Route path={'/'} element={
             <PrivateRoute component={
-              <RandomUser/>} path={'/randomUser'} isAuthenticated={isAuthenticated} />
+              <RandomUsers/>} path={'/randomUsers'} isAuthenticated={isAuthenticated} />
           }/> 
           <Route path={'randomUsers'} element={
             <PrivateRoute component={
-              <RandomUser/>} path={'/randomUser'} isAuthenticated={isAuthenticated} />
+              <RandomUsers/>} path={'/randomUsers'} isAuthenticated={isAuthenticated} />
           }/>
         </Routes>
       </div>
