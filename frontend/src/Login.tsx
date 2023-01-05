@@ -66,7 +66,7 @@ function LoginForm() {
         <form className="Login-form" onSubmit={handleSubmit}>
           <div className="Login-container-input">
             <input required type="text" placeholder="Username" className="Login-input"/>
-            <input required type="text" placeholder="Password" className="Login-input"/>
+            <input required type="password" placeholder="Password" className="Login-input"/>
           </div>
           <div className="remember-container">
             <input  onChange={_e => {}} checked={checkBox} type="radio" id="Login-remember" onClick={() => toggleCheckBox(!checkBox)}/>
