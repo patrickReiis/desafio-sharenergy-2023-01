@@ -41,7 +41,8 @@ function App() {
           }/> 
           <Route path={'randomUsers'} element={
             <PrivateRoute component={
-              <RandomUsers/>} path={'/randomUsers'} isAuthenticated={isAuthenticated} />
+              <RandomUsers/>
+            } path={'/randomUsers'} isAuthenticated={isAuthenticated} />
           }/>
         </Routes>
       </div>
