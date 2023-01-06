@@ -39,7 +39,7 @@ function App() {
             <PrivateRoute component={
               <RandomUsers/>} path={'/randomUsers'} isAuthenticated={isAuthenticated} />
           }/> 
-          <Route path={'randomUsers'} element={
+          <Route path={'/randomUsers'} element={
             <PrivateRoute component={
               <RandomUsers/>
             } path={'/randomUsers'} isAuthenticated={isAuthenticated} />
