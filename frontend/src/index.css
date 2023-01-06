@@ -1,10 +1,16 @@
 :root {
   --main-bg-color: #687EB8;
   --main-medium-dark-blue: #2C3B64;
+  --main-dark-grey: #A6A6A6;
+  --main-light-color: white;
+
   --main-border-radius: 2rem;
+
   --main-border-radius-padding: 0.5rem;
   --main-border-radius-margin: 0.25rem;
-  --main-light-color: white;
+
+  --width-icons: 45px;
+  --height-icons: 40px;
 }
 
 body {
