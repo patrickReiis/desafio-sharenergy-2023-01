@@ -64,3 +64,26 @@
 .RandomUsers-icon-selected > * {
   fill: var(--main-medium-dark-blue);
 }
+
+.Pagination-pages-container {
+  display: flex;
+  justify-content: center;
+}
+
+.Pagination-pageNum {
+  margin: 0.5rem;
+  color: var(--main-light-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.Pagination-page-selected {
+  text-decoration: underline;
+}
+
+.Pagination-arrow-icon {
+  width: calc(var(--width-icons) - 10px);
+  height: calc(var(--height-icons) - 10px);
+  align-self: center;
+  cursor: pointer;
+}
