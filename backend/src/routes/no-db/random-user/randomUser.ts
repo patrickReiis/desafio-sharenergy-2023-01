@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import https from 'https';
 
 export async function handleGetRandomUsers(req: Request, res: Response) {
-    const maxUsers = 15;
+    const maxUsers = 5;
     // set 'page' to the specified number if the value of the query parameter is an integer, else set 'page' to 1
     const page = Number.isInteger(Number(req.query['page'])) ? req.query['page'] : 1;
     const randomUrl = `https://randomuser.me/api/?results=${maxUsers}&page=${page}&inc=picture,name,email,dob,login&nat=us,br`;
