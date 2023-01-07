@@ -87,3 +87,27 @@
   align-self: center;
   cursor: pointer;
 }
+
+.Search-randomUser {
+  border-radius: var(--main-border-radius);
+  padding: var(--main-border-radius-padding);
+  width: 340px;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  border: none;
+  margin-top: calc(var(--main-border-radius-margin) + 0.3rem);
+
+  background-image: url('./icons/RandomUser/search-icon.svg');
+  background-size: calc(var(--width-icons) - 14px) calc(var(--height-icons) - 14px);
+  background-position: left center;
+  background-position-x: 5px;
+  background-repeat: no-repeat;
+  padding-left: 2.3rem; 
+}
+
+.Search-randomUser:focus {
+  outline: var(--main-medium-dark-blue) solid 3px;
+  box-shadow: none;
+}
