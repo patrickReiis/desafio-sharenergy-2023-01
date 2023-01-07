@@ -57,7 +57,7 @@ function RandomUsers() {
     }
 
     handleGetRandomUsers();
-  }, [currentPage])
+  }, [currentPage, randomUsersPage])
 
   return (
     <div>
