@@ -61,13 +61,13 @@ function RandomUsers() {
 
   return (
     <div>
-      <h3>
-        search users
-      </h3>
+      <SearchRandomUsers/>
+
       <RandomUsersList users={
         randomUsersPage[currentPage] === undefined ?
           [] : randomUsersPage[currentPage]
       }/>
+
       <Pagination onClick={handleChangePage} currentPage={currentPage}/>
     </div>
   );
@@ -164,7 +164,6 @@ function Pagination(props: PaginationProps) {
   );
 }
 
-
 function ArrowSvg(props: { onClick: (e: SyntheticEvent) => void}) {
   return (
 
@@ -229,6 +228,13 @@ function ArrowSvg(props: { onClick: (e: SyntheticEvent) => void}) {
     style={{fill:'#d9d9d9',fillOpacity:'1',fillRule:'nonzero',stroke:'none'}}
     id="path68" /></g></g></g></g></g></g></g></g></svg>
   );
+}
+
+function SearchRandomUsers() {
+
+  return (
+      <input className="Search-randomUser" placeholder="Name, username or e-mail." type="text"/>
+  )
 }
 
 export default RandomUsers;
