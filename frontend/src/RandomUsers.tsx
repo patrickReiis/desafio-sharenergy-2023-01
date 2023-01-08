@@ -22,6 +22,38 @@ interface RandomUserListProps {
 
 function RandomUsers() {
 
+  const [ searchValue, setSearchValue ] = useState('');
+  const [ similarUsers, setSimilarUsers] = useState([] as IRandomUser[]);
+
+  const flattenObject = (obj: IRandomUserPage) => {
+  let result:IRandomUser[] = [];
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      result = result.concat(obj[key]);
+    }
+  }
+  return result;
+}
+
+  function handleSearchUser(e: SyntheticEvent) {
+
+    const searchValue = (e.target as HTMLInputElement).value 
+    setSearchValue(searchValue);
+    const searchLength = searchValue.length;
+
+    const flattenUsers = flattenObject(randomUsersPage)
+
+    setSimilarUsers(flattenUsers.filter((user) => {
+      return (
+        user.fullname.slice(0, searchLength).toLowerCase() === searchValue
+        ||
+        user.username.slice(0, searchLength).toLowerCase() === searchValue
+        ||
+        user.email.slice(0, searchLength).toLowerCase() === searchValue
+      );
+    }))
+
+  }
   const [ currentPage, setCurrentPage ] = useState(1);
   const [ randomUsersPage, setRandomUsersPage ] = useState({} as IRandomUserPage)
 
@@ -59,18 +91,27 @@ function RandomUsers() {
     handleGetRandomUsers();
   }, [currentPage, randomUsersPage])
 
-  return (
-    <div>
-      <SearchRandomUsers/>
+  if (searchValue.length === 0) {
+    return (
+      <div>
+        <SearchRandomUsers onInput={handleSearchUser}/>
 
-      <RandomUsersList users={
-        randomUsersPage[currentPage] === undefined ?
+        <RandomUsersList users={
+          randomUsersPage[currentPage] === undefined ? // the component uses a map function, so if it's undefined it throws an error
           [] : randomUsersPage[currentPage]
-      }/>
-
-      <Pagination onClick={handleChangePage} currentPage={currentPage}/>
-    </div>
+        }/>
+        <Pagination onClick={handleChangePage} currentPage={currentPage}/>
+      </div>
   );
+  } 
+  else {
+    return (
+      <div>
+        <SearchRandomUsers onInput={handleSearchUser}/>
+        <RandomUsersList users={similarUsers}/>
+      </div>
+    );
+  }
 }
 
 function RandomUsersList(props: RandomUserListProps) {
@@ -230,10 +271,10 @@ function ArrowSvg(props: { onClick: (e: SyntheticEvent) => void}) {
   );
 }
 
-function SearchRandomUsers() {
+function SearchRandomUsers(props: {onInput: (e: SyntheticEvent) => void}) {
 
   return (
-      <input className="Search-randomUser" placeholder="Name, username or e-mail." type="text"/>
+      <input onInput={props.onInput} className="Search-randomUser" placeholder="Name, username or e-mail." type="text"/>
   )
 }
 
