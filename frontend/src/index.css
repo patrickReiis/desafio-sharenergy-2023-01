@@ -9,6 +9,10 @@
   --main-border-radius-padding: 0.5rem;
   --main-border-radius-margin: 0.25rem;
 
+  --color-users-light-grey: #D9D9D9;
+
+  --color-user-dark-grey: #4D4D4D;
+
   --width-icons: 45px;
   --height-icons: 40px;
 }
