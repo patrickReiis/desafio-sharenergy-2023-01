@@ -1,0 +1,39 @@
+.Users-add {
+  background: var(--main-medium-dark-blue);
+  color: var(--main-light-color);
+  text-decoration: none;
+  padding: calc(var(--main-border-radius-padding) + 0.2rem);
+  border-radius: var(--main-border-radius);
+  display: inline-block;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-left: auto;
+  text-align: left;
+  margin: 1rem;
+
+}
+
+.Users-noUsers {
+  color: var(--color-users-light-grey);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.Users-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.Users-container div {
+  background: var(--main-dark-grey);
+  color: var(--color-users-light-grey);
+  width: fit-content;
+  border-radius: var(--main-border-radius);
+  padding: var(--main-border-radius-padding);
+  margin: var(--main-border-radius-margin);
+  cursor: pointer;
+}
