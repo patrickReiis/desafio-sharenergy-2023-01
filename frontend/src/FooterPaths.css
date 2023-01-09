@@ -1,0 +1,12 @@
+.Paths-Available {
+  color: var(--main-light-color);
+  margin: 0;
+  padding: 0;
+}
+
+.Link-to-pages{
+  color: var(--main-light-color);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
