@@ -3,6 +3,8 @@ import './RandomUsers.css';
 import UsernameIcon from "./icons/UsernameIcon";
 import EmailIcon from './icons/EmailIcon';
 import AgeIcon from './icons/AgeIcon';
+import FooterPaths from "./FooterPaths";
+
 
 interface IRandomUser {
   age: number;
@@ -101,6 +103,7 @@ function RandomUsers() {
           [] : randomUsersPage[currentPage]
         }/>
         <Pagination onClick={handleChangePage} currentPage={currentPage}/>
+        <FooterPaths/>
       </div>
   );
   } 
@@ -109,6 +112,7 @@ function RandomUsers() {
       <div>
         <SearchRandomUsers onInput={handleSearchUser}/>
         <RandomUsersList users={similarUsers}/>
+        <FooterPaths/>
       </div>
     );
   }
