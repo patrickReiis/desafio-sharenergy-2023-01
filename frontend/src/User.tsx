@@ -84,6 +84,8 @@ function User() {
           setErrorMsg('');
           navigate('/users');
         }
+        setErrorMsg('Couldn\'t delete the user');
+        setSuccessMsg('')
       } catch(e) {
         console.log('Error during DELETE user: ', e)
         setErrorMsg('Couldn\'t delete the user');
@@ -127,7 +129,6 @@ function User() {
     </div>
   )
 }
-
 
 function SuccessMsg(props: {successMsg: string}) {
   return props.successMsg.length === 0 ?
