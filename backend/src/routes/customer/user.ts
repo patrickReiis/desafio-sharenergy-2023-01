@@ -40,7 +40,7 @@ export async function handleGetUser(req: Request, res: Response) {
 
 export async function handleCreateUser(req: Request, res: Response) {
     if (isBodyValidUserCreation(req.body) === false) {
-        res.status(400).json({ error: 'The correct body format is { name: string, email: string, phone: number, address: string, CPF: number } Empty property values are also not valid' })
+        res.status(400).json({ error: 'The correct body format is { name: string, email: string, phone: number, address: string, CPF: string} Empty property values are also not valid' })
         return
     }
 
@@ -128,7 +128,7 @@ function isBodyValidUserCreation(body: any): boolean {
         ||
         typeof phone !== 'number' || typeof address !== 'string'
         ||
-        typeof CPF !== 'number') {
+        /^[0-9]+$/.test(CPF) === false) {
             return false
     }
 
