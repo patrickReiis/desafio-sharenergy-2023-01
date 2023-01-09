@@ -3,7 +3,9 @@ import Login from './Login';
 import { Routes, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import RandomUsers from './RandomUsers';
+import Users from './Users';
 import { useState, useEffect } from 'react';
+import User from './User';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -43,6 +45,16 @@ function App() {
             <PrivateRoute component={
               <RandomUsers/>
             } path={'/randomUsers'} isAuthenticated={isAuthenticated} />
+          }/>
+          <Route path={'/users'} element={
+            <PrivateRoute component={
+              <Users/>
+            } path={'/users'} isAuthenticated={isAuthenticated} />
+          }/>
+            <Route path={'/user/:id'} element={
+            <PrivateRoute component={
+              <User/>
+              } path={'/user/:id'} isAuthenticated={isAuthenticated} />
           }/>
         </Routes>
       </div>
