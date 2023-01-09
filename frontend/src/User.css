@@ -41,3 +41,47 @@
   padding: var(--main-border-radius-padding);
   color: var(--main-dark-grey);
 }
+
+#User-submit-container {
+  background: transparent;
+}
+
+#User-update, #User-delete {
+  border-radius: var(--main-border-radius);
+  margin: var(--main-border-radius-margin);
+  padding: var(--main-border-radius-padding);
+  color: var(--main-light-color);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#User-update {
+  background: var(--color-success);
+}
+
+#User-delete {
+  background: var(--color-error);
+}
+
+#user-CPF {
+  cursor: not-allowed;
+  background: #e2e2e2;
+}
+
+.User-error-msg {
+  background: var(--color-error);
+  color: var(--main-light-color);
+  border-radius: var(--main-border-radius);
+  padding: var(--main-border-radius-padding);
+  width: fit-content;
+  margin: var(--main-border-radius-margin) auto;
+}
+
+.User-success-msg {
+  background: var(--color-success);
+  color: var(--main-light-color);
+  border-radius: var(--main-border-radius);
+  padding: var(--main-border-radius-padding);
+  width: fit-content;
+  margin: var(--main-border-radius-margin) auto;
+}
