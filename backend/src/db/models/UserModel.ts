@@ -5,7 +5,7 @@ export interface IUser {
     email: string,
     phone: number
     address: string,
-    CPF: number 
+    CPF: string
 } 
 
 const UserSchema = new mongoose.Schema<IUser>({
@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema<IUser>({
     email: { type: String, required: true },
     phone: { type: Number, required: true },
     address: String,
-    CPF: { type: Number, unique: true, required: true }
+    CPF: { type: String, unique: true, required: true }
 })
 
 export const UserModel = mongoose.model<IUser>('user', UserSchema, 'Users');
