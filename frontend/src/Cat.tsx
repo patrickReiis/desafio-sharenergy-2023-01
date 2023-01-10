@@ -36,7 +36,7 @@ function Cat() {
         <input className='Cat-submit' value="Get Image" type="submit"/>
       </form>
       <div className='Cat-image'>
-        {imageUrl && <img src={imageUrl} alt="photo of a cat"/>}
+        {imageUrl && <img src={imageUrl} alt="cat"/>}
       </div>
     </div>
 
