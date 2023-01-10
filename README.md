@@ -1,4 +1,4 @@
-## Youtube video showcasing the project (in portuguese): url
+## Youtube video showcasing the project (in portuguese): https://youtu.be/8AQKo-_t8EY
 
 ## About the project
 
