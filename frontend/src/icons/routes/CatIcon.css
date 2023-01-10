@@ -1,0 +1,4 @@
+.CatIcon {
+  width: calc(var(--width-icons) + 10px);
+  height: calc(var(--height-icons) + 10px);
+}
