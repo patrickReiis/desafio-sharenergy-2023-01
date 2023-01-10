@@ -6,6 +6,7 @@ import RandomUsers from './RandomUsers';
 import Users from './Users';
 import { useState, useEffect } from 'react';
 import User from './User';
+import Cat from './Cat';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -55,6 +56,11 @@ function App() {
             <PrivateRoute component={
               <User/>
               } path={'/user/:id'} isAuthenticated={isAuthenticated} />
+          }/>
+            <Route path={'/cat'} element={
+            <PrivateRoute component={
+              <Cat/>
+              } path={'/cat'} isAuthenticated={isAuthenticated} />
           }/>
         </Routes>
       </div>
