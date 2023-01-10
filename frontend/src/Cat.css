@@ -1,0 +1,31 @@
+.Cat-number {
+  outline: none;
+  border: none;
+  font-family: inherit;
+  border-top-left-radius: var(--main-border-radius);
+  border-bottom-left-radius: var(--main-border-radius);
+  padding: var(--main-border-radius-padding);
+}
+
+.Cat-submit {
+  background: #2C3B64;
+  color: var(--main-light-color);
+  border: none;
+  font-family: inherit;
+  border-top-right-radius: var(--main-border-radius);
+  border-bottom-right-radius: var(--main-border-radius);
+  padding: var(--main-border-radius-padding);
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.Cat-image img{
+  margin-top: 4.5rem;
+  width: 80%;
+  height: 80%;
+  max-width: 600px;
+}
+
+.Cat-form {
+  margin: 0;
+}
