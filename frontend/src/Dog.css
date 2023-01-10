@@ -1,0 +1,25 @@
+.Dog-refresh{
+  width: calc(130px + 5%);
+  max-width: 300px;
+  cursor: pointer;
+}
+
+.Dog-img img {
+  width: 80%;
+  height: 80%;
+  max-width: 700px;
+  max-height: 700px;
+}
+
+.Dog-container {
+  margin-top: 5rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.Dog-loading {
+  color: var(--main-light-color);
+  font-size: 3rem;
+}
