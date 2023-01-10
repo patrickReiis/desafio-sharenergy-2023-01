@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import DogRefresh from './icons/Dog/refreshDog.png';
 import './Dog.css'
 
@@ -19,6 +19,10 @@ function Dog() {
       console.log('Error during GET dog: e', e);
     }
   }
+
+  useEffect(() => {
+    handleClick()
+  }, []) 
 
   const [isLoading, setIsLoading] = useState(false);
 
