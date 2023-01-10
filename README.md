@@ -12,7 +12,12 @@ This is a tech challenge for the company sharenergy. The project consists of:
 
 ## How to run
 #### Note
-The project has 2 separate entities, the frontend and backend, let's see how to run the backend first.
+- The project has 2 separate entities, the frontend and backend, let's see how to run the backend first.
+- The login functionality requires an username ```desafiosharenergy``` and a password ```sh@r3n3rgy```. However the password stored in the database is hashed, so you need to hash the password using argon2 and store it in the Admin collection. The Admin collection requires a document with the following structure:
+```
+{ username: String, password: String, session: { token: String, expiresIn: Date }}
+```
+You can omit the session object since it'll be created automatically once you log in.
 
 ## Create database
 - Go to the [MongoDB](https://www.mongodb.com/cloud/atlas/register) website and create an account, this project uses the Atlas Cloud Database.
