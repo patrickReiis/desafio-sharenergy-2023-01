@@ -1,0 +1,23 @@
+.Paths-Available {
+  color: var(--main-light-color);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.Link-to-pages{
+  color: var(--main-light-color);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+li {
+  list-style: none;
+}
+
+.Paths-Available li {
+  margin: 0.2rem;
+}

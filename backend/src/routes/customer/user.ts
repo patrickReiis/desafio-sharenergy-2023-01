@@ -25,9 +25,22 @@ export async function handleGetUsers(req: Request, res: Response) {
     res.json(usersFiltered);
 }
 
+export async function handleGetUser(req: Request, res: Response) {
+    const CPF = req.url.slice('/api/v1/user/'.length);
+
+    const user = await UserModel.findOne({ CPF: CPF });
+
+    if (user === null) {
+        res.status(404).send();
+        return
+    }
+
+    res.status(200).json({ name: user.name, email: user.email, phone: user.phone, address: user.address, CPF: user.CPF });
+}
+
 export async function handleCreateUser(req: Request, res: Response) {
     if (isBodyValidUserCreation(req.body) === false) {
-        res.status(400).json({ error: 'The correct body format is { name: string, email: string, phone: number, address: string, CPF: number } Empty property values are also not valid' })
+        res.status(400).json({ error: 'The correct body format is { name: string, email: string, phone: number, address: string, CPF: string} Empty property values are also not valid' })
         return
     }
 
@@ -53,6 +66,53 @@ export async function handleCreateUser(req: Request, res: Response) {
 
 }
 
+export async function handleUpdateUser(req: Request, res: Response) {
+    const CPF = req.url.slice('/api/v1/user/'.length);
+
+    if (isBodyValidUserUpdate(req.body) === false) {
+        res.status(400).json({ error: 'You can only update the following properties: name, email, phone, address.' })
+        return
+    }
+
+    const user = await UserModel.findOne({ CPF: CPF });
+
+    if (user === null) {
+        res.status(404).send();
+        return
+    }
+
+    try {
+        await user.updateOne(req.body);
+        res.status(200).send();
+        return
+    } catch (e) {
+        console.log('Error during updating user: ', e);
+        res.status(500).send();
+        return
+    }
+}
+
+export async function handleDeleteUser(req: Request, res: Response) {
+    const CPF = req.url.slice('/api/v1/user/'.length);
+
+    const user = await UserModel.findOne({ CPF: CPF });
+
+    if (user === null) {
+        res.status(404).send();
+        return
+    }
+
+    try {
+        await user.delete();
+        res.status(200).send();
+        return
+    } catch (e) {
+        console.log('Error during deleting user: ', e);
+        res.status(500).send();
+        return
+    }
+}
+
 async function doesUserExists(CPF: number): Promise<boolean> {
     const user = await UserModel.findOne({ CPF: CPF });
 
@@ -68,13 +128,33 @@ function isBodyValidUserCreation(body: any): boolean {
         ||
         typeof phone !== 'number' || typeof address !== 'string'
         ||
-        typeof CPF !== 'number') {
+        /^[0-9]+$/.test(CPF) === false) {
             return false
     }
 
     if (email.length === 0) return false;
     if (name.length === 0) return false;
     if (address.length === 0) return false;
+
+    return true
+}
+
+function isBodyValidUserUpdate(body: any) {
+    const updateableProperties = ['name', 'email', 'phone', 'address'];
+
+    if (typeof body !== 'object' || Array.isArray(body) === true) return false;
+
+    const bodyKeys = Object.keys(body);
+    if (bodyKeys.length > updateableProperties.length) return false;
+
+    for (let i = 0; i < bodyKeys.length; i++) {
+        if (updateableProperties.includes(bodyKeys[i]) === false) return false;
+    }
+
+    if ('name' in body && typeof body['name'] !== 'string') return false;
+    if ('email' in body && typeof body['email'] !== 'string') return false;
+    if ('phone' in body && typeof body['phone'] !== 'number') return false;
+    if ('address' in body && typeof body['address'] !== 'string') return false;
 
     return true
 }
